@@ -1,36 +1,36 @@
 <?php
-include'../includes/connection.php';
+include '../includes/connection.php';
 
-include'../includes/sidebar.php';
+// Debugging output
+echo '<pre>';
+print_r($_GET);
+echo '</pre>';
+exit;
 
-  $query = 'SELECT ID, t.TYPE
-            FROM users u
-            JOIN type t ON t.TYPE_ID=u.TYPE_ID WHERE ID = '.$_SESSION['MEMBER_ID'].'';
-  $result = mysqli_query($db, $query) or die (mysqli_error($db));
-  
-  while ($row = mysqli_fetch_assoc($result)) {
-            $Aa = $row['TYPE'];
-                   
-if ($Aa=='User'){
-?>
-  <script type="text/javascript">
-    //then it will be redirected
-    alert("Restricted Page! You will be redirected to POS");
-    window.location = "pos.php";
-  </script>
-<?php
-  }
+// Check if 'id' and 'type' are set in the URL
+if (isset($_GET['id']) && isset($_GET['type']) && $_GET['type'] == 'product') {
+    $product_id = intval($_GET['id']); // Sanitize input
+
+    // Prepare the delete query
+    $query = 'DELETE FROM product WHERE PRODUCT_ID = ?';
+    $stmt = $db->prepare($query);
+    $stmt->bind_param('i', $product_id);
+
+    if ($stmt->execute()) {
+        echo '<script type="text/javascript">
+                alert("Product Successfully Deleted.");
+                window.location = "product.php";
+              </script>';
+    } else {
+        echo '<script type="text/javascript">
+                alert("Error deleting product.");
+                window.location = "product.php";
+              </script>';
+    }
+} else {
+    echo '<script type="text/javascript">
+            alert("Invalid request.");
+            window.location = "product.php";
+          </script>';
 }
-	if (!isset($_GET['do']) || $_GET['do'] != 1) {
-						
-    	switch ($_GET['type']) {
-    		case 'employee':
-    			$query = 'DELETE FROM employee WHERE EMPLOYEE_ID = ' . $_GET['id'];
-    			$result = mysqli_query($db, $query) or die(mysqli_error($db));				
-            ?>
-    			<script type="text/javascript">alert("Employee Successfully Deleted.");window.location = "employee.php";</script>					
-            <?php
-    			//break;
-            }
-	}
 ?>

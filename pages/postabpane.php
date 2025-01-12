@@ -2,7 +2,7 @@
                             <!-- Tab panes -->
                             <div class="tab-content">
                               <!-- 1ST TAB -->
-                                <div class="tab-pane fade in mt-2" id="keyboard">
+                                <div class="tab-pane fade in mt-2" id="Fiction">
                                   <div class="row">
                                       <?php  $query = 'SELECT * FROM product WHERE CATEGORY_ID=0 GROUP BY PRODUCT_CODE ORDER by PRODUCT_CODE ASC';
                                         $result = mysqli_query($db, $query);

@@ -1,103 +1,55 @@
 <?php
-include'../includes/connection.php';
+include '../includes/connection.php';
 
 session_start();
 
-              $date = $_POST['date'];
-              $customer = $_POST['customer'];
-              $subtotal = $_POST['subtotal'];
-              $lessvat = $_POST['lessvat'];
-              $netvat = $_POST['netvat'];
-              $addvat = $_POST['addvat'];
-              $total = $_POST['total'];
-              $cash = $_POST['cash'];
-              $emp = $_POST['employee'];
-              $rol = $_POST['role'];
-              //imma make it trans uniq id
-              $today = date("mdGis"); 
-              
-              $countID = count($_POST['name']);
-              // echo "<table>";
-              switch($_GET['action']){
-                case 'add':  
-                for($i=1; $i<=$countID; $i++)
-                  {
-                    // echo "'{$today}', '".$_POST['name'][$i-1]."', '".$_POST['quantity'][$i-1]."', '".$_POST['price'][$i-1]."', '{$emp}', '{$rol}' <br>";
+$date = $_POST['date'] ?? null;
+$customer = $_POST['customer'] ?? null;
+$subtotal = $_POST['subtotal'] ?? 0;
+$lessvat = $_POST['lessvat'] ?? 0;
+$netvat = $_POST['netvat'] ?? 0;
+$addvat = $_POST['addvat'] ?? 0;
+$total = $_POST['total'] ?? 0;
+$cash = $_POST['cash'] ?? 0;
+$emp = $_POST['employee'] ?? '';
+$rol = $_POST['role'] ?? '';
+$today = date("mdGis");
 
-                    $query = "INSERT INTO `transaction_details`
-                               (`ID`, `TRANS_D_ID`, `PRODUCTS`, `QTY`, `PRICE`, `EMPLOYEE`, `ROLE`)
-                               VALUES (Null, '{$today}', '".$_POST['name'][$i-1]."', '".$_POST['quantity'][$i-1]."', '".$_POST['price'][$i-1]."', '{$emp}', '{$rol}')";
+// Check if the product data exists
+if (!isset($_POST['name']) || !is_array($_POST['name']) || count($_POST['name']) === 0) {
+    die("Error: No products provided in the transaction.");
+}
 
-                    mysqli_query($db,$query)or die (mysqli_error($db));
+$countID = count($_POST['name']);
 
-                    }
-                    $query111 = "INSERT INTO `transaction`
-                               (`TRANS_ID`, `CUST_ID`, `NUMOFITEMS`, `SUBTOTAL`, `LESSVAT`, `NETVAT`, `ADDVAT`, `GRANDTOTAL`, `CASH`, `DATE`, `TRANS_D_ID`)
-                               VALUES (Null,'{$customer}','{$countID}','{$subtotal}','{$lessvat}','{$netvat}','{$addvat}','{$total}','{$cash}','{$date}','{$today}')";
-                    mysqli_query($db,$query111)or die (mysqli_error($db));
+switch ($_GET['action'] ?? '') {
+    case 'add':
+        for ($i = 0; $i < $countID; $i++) {
+            $productName = $_POST['name'][$i];
+            $quantity = $_POST['quantity'][$i] ?? 0;
+            $price = $_POST['price'][$i] ?? 0;
 
-                break;
-              }
-                    unset($_SESSION['pointofsale']);
-               ?>
-              <script type="text/javascript">
-                alert("Success.");
-                window.location = "pos.php";
-              </script>
-          </div>
+            $query = "INSERT INTO `transaction_details` 
+                      (`ID`, `TRANS_D_ID`, `PRODUCTS`, `QTY`, `PRICE`, `EMPLOYEE`, `ROLE`) 
+                      VALUES (NULL, '{$today}', '{$productName}', '{$quantity}', '{$price}', '{$emp}', '{$rol}')";
+            mysqli_query($db, $query) or die(mysqli_error($db));
+        }
 
+        $query111 = "INSERT INTO `transaction` 
+                     (`TRANS_ID`, `CUST_ID`, `NUMOFITEMS`, `SUBTOTAL`, `LESSVAT`, `NETVAT`, `ADDVAT`, `GRANDTOTAL`, `CASH`, `DATE`, `TRANS_D_ID`) 
+                     VALUES (NULL, '{$customer}', '{$countID}', '{$subtotal}', '{$lessvat}', '{$netvat}', '{$addvat}', '{$total}', '{$cash}', '{$date}', '{$today}')";
+        mysqli_query($db, $query111) or die(mysqli_error($db));
 
+        unset($_SESSION['pointofsale']);
+        ?>
+        <script type="text/javascript">
+            alert("Transaction successfully added.");
+            window.location = "pos.php";
+        </script>
+        <?php
+        break;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<?php
-              // switch($_GET['action']){
-              //   case 'add':     
-              //       $query = "INSERT INTO transaction_details
-              //                  (`ID`, `PRODUCTS`, `EMPLOYEE`, `ROLE`)
-              //                  VALUES (Null, 'here', '{$emp}', '{$rol}')";
-              //       mysqli_query($db,$query)or die ('Error in Database '.$query);
-              //       $query2 = "INSERT INTO `transaction`
-              //                  (`TRANS_ID`, `CUST_ID`, `SUBTOTAL`, `LESSVAT`, `NETVAT`, `ADDVAT`, `GRANDTOTAL`, `CASH`, `DATE`, `TRANS_D_ID`)
-              //                  VALUES (Null,'{$customer}','{$subtotal}','{$lessvat}','{$netvat}','{$addvat}','{$total}','{$cash}','{$date}','{$today}'')";
-              //       mysqli_query($db,$query2)or die ('Error in updating Database2 '.$query2);
-              //   break;
-              // }
-
-              // mysqli_query($db,"INSERT INTO transaction_details
-              //                 (`ID`, `PRODUCTS`, `EMPLOYEE`, `ROLE`)
-              //                 VALUES (Null, 'a', '{$emp}', '{$rol}')");
-
-              // mysqli_query($db,"INSERT INTO `transaction`
-              //                 (`TRANS_ID`, `CUST_ID`, `SUBTOTAL`, `LESSVAT`, `NETVAT`, `ADDVAT`, `GRANDTOTAL`, `CASH`, `DATE`, `TRANS_DETAIL_ID`)
-              //                 VALUES (Null,'{$customer}',{$subtotal},{$lessvat},{$netvat},{$addvat},{$total},{$cash},'{$date}',(SELECT MAX(ID) FROM transaction_details))");
-
-              // header('location:posdetails.php');
-
-            ?>
-<!--  <script type="text/javascript">
-      alert("Transaction successfully added.");
-      window.location = "pos.php";
-      </script> -->
+    default:
+        die("Error: Invalid action.");
+}
+?>

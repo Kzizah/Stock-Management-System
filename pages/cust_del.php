@@ -1,38 +1,35 @@
-<?php
-include'../includes/connection.php';
-include'../includes/sidebar.php';
-?>
-<?php 
+\<?php
+// Include necessary files
+include '../includes/connection.php';
+include '../includes/sidebar.php';
 
-                $query = 'SELECT ID, t.TYPE
-                          FROM users u
-                          JOIN type t ON t.TYPE_ID=u.TYPE_ID WHERE ID = '.$_SESSION['MEMBER_ID'].'';
-                $result = mysqli_query($db, $query) or die (mysqli_error($db));
-      
-                while ($row = mysqli_fetch_assoc($result)) {
-                          $Aa = $row['TYPE'];
-                   
-if ($Aa=='User'){
-           
-             ?>    <script type="text/javascript">
-                      //then it will be redirected
-                      alert("Restricted Page! You will be redirected to POS");
-                      window.location = "pos.php";
-                  </script>
-             <?php   }
-                         
-           
+// Check if 'action' and 'id' are set in the URL
+if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $customer_id = $_GET['id'];
+
+    // Delete the customer from the database
+    $query = "DELETE FROM customer WHERE CUST_ID = $customer_id";
+    $result = mysqli_query($db, $query);
+
+    // Check if the delete query was successful
+    if ($result) {
+        // Redirect to customer page with success message
+        echo '<script type="text/javascript">
+                alert("Customer successfully deleted.");
+                window.location = "customer.php";
+              </script>';
+    } else {
+        // If deletion fails, show an error
+        echo '<script type="text/javascript">
+                alert("Error deleting customer. Please try again.");
+                window.location = "customer.php";
+              </script>';
+    }
+} else {
+    // If parameters are missing or invalid, show an error and redirect
+    echo '<script type="text/javascript">
+            alert("Invalid request. Please try again.");
+            window.location = "customer.php";
+          </script>';
 }
-	if (!isset($_GET['do']) || $_GET['do'] != 1) {
-						
-    	switch ($_GET['type']) {
-    		case 'customer':
-    			$query = 'DELETE FROM customer WHERE CUST_ID = ' . $_GET['id'];
-    			$result = mysqli_query($db, $query) or die(mysqli_error($db));				
-            ?>
-    			<script type="text/javascript">alert("Customer Successfully Deleted.");window.location = "customer.php";</script>					
-            <?php
-    			//break;
-            }
-	}
 ?>

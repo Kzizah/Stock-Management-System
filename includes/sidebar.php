@@ -94,6 +94,13 @@
           <i class="fas fa-fw fa-user"></i>
           <span>Employee</span></a>
       </li>
+
+      
+      <li class="nav-item">
+        <a class="nav-link" href="category.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Category</span></a>
+      </li>
       
       <li class="nav-item">
         <a class="nav-link" href="product.php">

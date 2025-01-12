@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 17, 2022 at 06:57 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.1
+-- Host: localhost
+-- Generation Time: Jan 12, 2025 at 09:19 AM
+-- Server version: 11.4.3-MariaDB-1
+-- PHP Version: 8.2.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,22 +30,23 @@ SET time_zone = "+00:00";
 CREATE TABLE `category` (
   `CATEGORY_ID` int(11) NOT NULL,
   `CNAME` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`CATEGORY_ID`, `CNAME`) VALUES
-(0, 'Keyboard'),
-(1, 'Mouse'),
-(2, 'Monitor'),
-(3, 'Motherboard'),
-(4, 'Processor'),
-(5, 'Power Supply'),
-(6, 'Headset'),
-(7, 'CPU'),
-(9, 'Others');
+(0, 'Fiction'),
+(1, 'Non-Fiction'),
+(2, 'Children’s Books'),
+(3, 'Education'),
+(4, 'Cookbooks'),
+(5, 'Art & Photography'),
+(6, 'Comics & Graphic Novels'),
+(7, 'Religion & Spirituality'),
+(9, 'Poetry'),
+(14, 'Science & Nature');
 
 -- --------------------------------------------------------
 
@@ -55,10 +56,10 @@ INSERT INTO `category` (`CATEGORY_ID`, `CNAME`) VALUES
 
 CREATE TABLE `customer` (
   `CUST_ID` int(11) NOT NULL,
-  `FIRST_NAME` varchar(50) DEFAULT NULL,
-  `LAST_NAME` varchar(50) DEFAULT NULL,
-  `PHONE_NUMBER` varchar(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `FIRST_NAME` varchar(50) NOT NULL,
+  `LAST_NAME` varchar(50) NOT NULL,
+  `PHONE_NUMBER` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `customer`
@@ -66,10 +67,18 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`CUST_ID`, `FIRST_NAME`, `LAST_NAME`, `PHONE_NUMBER`) VALUES
 (9, 'Hailee', 'Steinfield', '09394566543'),
-(11, 'A Walk in Customer', NULL, NULL),
-(14, 'Chuchay', 'Jusay', '09781633451'),
+(11, 'Mercy', 'Lynnn', '0745234765'),
+(14, 'John', 'Me', '09781633451'),
 (15, 'Kimbert', 'Duyag', '09956288467'),
-(16, 'Dieqcohr', 'Rufino', '09891344576');
+(16, 'Edwin', 'Bii', '09891344576'),
+(17, 'ziza', 'ccc', '083536728'),
+(18, 'Aaron ', 'Dean', '98765'),
+(19, 'Zack', 'Silatei', '0798375413'),
+(23, 'jean', 'dev', '8765'),
+(27, 'Zack', 'Silatei', '0798375413'),
+(28, '', '', ''),
+(29, '', '', ''),
+(30, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -87,7 +96,7 @@ CREATE TABLE `employee` (
   `JOB_ID` int(11) DEFAULT NULL,
   `HIRED_DATE` varchar(50) NOT NULL,
   `LOCATION_ID` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `employee`
@@ -107,7 +116,7 @@ INSERT INTO `employee` (`EMPLOYEE_ID`, `FIRST_NAME`, `LAST_NAME`, `GENDER`, `EMA
 CREATE TABLE `job` (
   `JOB_ID` int(11) NOT NULL,
   `JOB_TITLE` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `job`
@@ -127,7 +136,7 @@ CREATE TABLE `location` (
   `LOCATION_ID` int(11) NOT NULL,
   `PROVINCE` varchar(100) DEFAULT NULL,
   `CITY` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `location`
@@ -183,7 +192,7 @@ CREATE TABLE `manager` (
   `LOCATION_ID` int(11) NOT NULL,
   `EMAIL` varchar(50) DEFAULT NULL,
   `PHONE_NUMBER` varchar(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `manager`
@@ -209,38 +218,22 @@ CREATE TABLE `product` (
   `CATEGORY_ID` int(11) DEFAULT NULL,
   `SUPPLIER_ID` int(11) DEFAULT NULL,
   `DATE_STOCK_IN` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `product`
 --
 
 INSERT INTO `product` (`PRODUCT_ID`, `PRODUCT_CODE`, `NAME`, `DESCRIPTION`, `QTY_STOCK`, `ON_HAND`, `PRICE`, `CATEGORY_ID`, `SUPPLIER_ID`, `DATE_STOCK_IN`) VALUES
-(1, '20191001', 'Lenovo ideapad 20059', 'Windows 8', 1, 1, 32999, 7, 15, '2019-03-02'),
-(3, '20191003', 'Predator Helios 300 Gaming Laptop', 'Windows 10 Home\r\nIntelÂ® Coreâ„¢ i7-8750H processor Hexa-core 2.20 GHz\r\n15.6\" Full HD (1920 x 1080) ', 1, 1, 77850, 7, 15, '2019-03-02'),
-(4, '20191002', 'Newmen E120', 'hehe', 1, 1, 550, 0, 11, '2019-03-02'),
-(5, '20191002', 'Newmen E120', 'hehe', 1, 1, 550, 0, 15, '2019-03-03'),
-(6, '20191002', 'Newmen E120', 'hehe', 1, 1, 550, 0, 11, '2019-03-04'),
-(8, '20191002', 'Newmen E120', 'hehe', 1, 1, 550, 0, 11, '2019-03-05'),
-(9, '20191002', 'Newmen E120', 'hehe', 1, 1, 550, 0, 11, '2019-03-04'),
-(10, '20191004', 'Fantech EG1', 'BEST FOR MOBILE PHONE GAMERS\r\nSPEAKER:10mm\r\nIMPEDANCE: 18+-15%\r\nFREQUENCY RESPONSE: 20 TO 20khz\r\nMICROPHONE : OMNI DIRECTIONAL\r\nJACK: AUDIO+MICROPHONE\r\nCOMBINED JACK 3.5 WIRE\r\nWIRE LENGTH: 1.3M\r\nWhat in inside:-1 pcs Female 3.5mm to Audio and\r\nmicrop', 11, 1, 859, 6, 13, '2019-03-06'),
-(11, '20191004', 'Fantech EG1', 'a', 1, 1, 895, 6, 13, '2019-03-01'),
-(12, '20191004', 'Fantech EG1', 'a', 1, 1, 895, 6, 13, '2019-03-01'),
-(13, '20191004', 'Fantech EG1', 'a', 1, 1, 895, 6, 13, '2019-03-01'),
-(14, '20191002', 'Newmen E120', 'haha', 1, 1, 550, 0, 15, '2019-03-06'),
-(15, '20191002', 'Newmen E120', 'haha', 1, 1, 550, 0, 15, '2019-03-06'),
-(16, '20191002', 'Newmen E120', 'haha', 1, 1, 550, 0, 15, '2019-03-06'),
-(17, '20191002', 'Newmen E120', 'haha', 1, 1, 550, 0, 15, '2019-03-06'),
-(18, '20191002', 'Newmen E120', 'haha', 1, 1, 550, 0, 15, '2019-03-06'),
-(19, '20191002', 'Newmen E120', 'haha', 1, 1, 550, 0, 15, '2019-03-06'),
-(20, '20191002', 'Newmen E120', 'haha', 1, 1, 550, 0, 15, '2019-03-06'),
-(21, '20191002', 'Newmen E120', 'haha', 1, 1, 550, 0, 15, '2019-03-06'),
-(22, '20191001', 'Lenovo ideapad 20059', 'hehe', 10, 1, 32999, 7, 12, '2019-03-11'),
-(23, '20191001', 'Lenovo ideapad 20059', 'hehe', 1, 1, 32999, 7, 12, '2019-03-11'),
-(24, '20191001', 'Lenovo ideapad 20059', 'hehe', 1, 1, 32999, 7, 12, '2019-03-11'),
-(25, '20191001', 'Lenovo ideapad 20059', 'hehe', 1, 1, 32999, 7, 12, '2019-03-11'),
-(26, '20191001', 'Lenovo ideapad 20059', 'hehe', 1, 1, 32999, 7, 12, '2019-03-11'),
-(27, '20191005', 'A4tech OP-720', 'normal mouse', 1, 1, 289, 1, 16, '2019-03-13');
+(1, '20191001', 'Good News Bible', 'Simple and easy to read', 655, 1, 1500, 7, 15, '2019-03-02'),
+(3, '20191003', 'Our lives Today', 'Social Studies', 1, 1, 800, 3, 15, '2019-03-02'),
+(6, '20191002', 'Goat Matata', 'Have fun reading', 1, 1, 550, 2, 11, '2019-03-04'),
+(10, '20191004', 'Rich Dad Poor Dad', 'Interesting Novel', 11, 1, 700, 0, 13, '2019-03-06'),
+(27, '20191005', 'The Universe', 'Wild Scenes', 1, 1, 2000, 14, 16, '2019-03-13'),
+(30, '6555', 'Arts Book', 'Be good in arts', 76, 9, 1000, 5, 15, '2025-01-10'),
+(31, '1850', 'Html', 'learn coding', 50, 1, 10000, 3, 11, '2025-01-08'),
+(32, '6575', 'John the Builder', 'Build with creativity', 234, 1, 234000, 4, 13, '2025-01-08'),
+(33, '1', 'Rip And Sow', 'Rip and Sow', 23, 2, 10000, 1, 11, '2025-01-08');
 
 -- --------------------------------------------------------
 
@@ -253,7 +246,7 @@ CREATE TABLE `supplier` (
   `COMPANY_NAME` varchar(50) DEFAULT NULL,
   `LOCATION_ID` int(11) NOT NULL,
   `PHONE_NUMBER` varchar(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `supplier`
@@ -284,7 +277,7 @@ CREATE TABLE `transaction` (
   `CASH` varchar(250) NOT NULL,
   `DATE` varchar(50) NOT NULL,
   `TRANS_D_ID` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `transaction`
@@ -304,7 +297,12 @@ INSERT INTO `transaction` (`TRANS_ID`, `CUST_ID`, `NUMOFITEMS`, `SUBTOTAL`, `LES
 (13, 11, '1', '550.00', '58.93', '491.07', '58.93', '550.00', '550', '2022-07-14 14:12 pm', '0714141333'),
 (14, 16, '1', '550.00', '58.93', '491.07', '58.93', '550.00', '1000', '2022-07-14 15:54 pm', '0714155515'),
 (15, 11, '2', '1,128.00', '120.86', '1,007.14', '120.86', '1,128.00', '1128', '2022-07-14 16:08 pm', '0714160904'),
-(16, 9, '1', '550.00', '58.93', '491.07', '58.93', '550.00', '550', '2022-07-14 16:10 pm', '0714161034');
+(16, 9, '1', '550.00', '58.93', '491.07', '58.93', '550.00', '550', '2022-07-14 16:10 pm', '0714161034'),
+(17, 16, '1', '550.00', '58.93', '491.07', '58.93', '550.00', '233550.00', '2025-01-10 08:28 am', '011082913'),
+(18, 19, '2', '3,500.00', '375.00', '3,125.00', '375.00', '3,500.00', '3500', '2025-01-10 13:11 pm', '0110131139'),
+(19, 23, '3', '50,800.00', '5,442.86', '45,357.14', '5,442.86', '50,800.00', '50800', '2025-01-10 13:20 pm', '0110132055'),
+(20, 27, '1', '10,000.00', '1,071.43', '8,928.57', '1,071.43', '10,000.00', '233550.00', '2025-01-10 13:27 pm', '0110132811'),
+(21, 9, '2', '11,500.00', '1,232.14', '10,267.86', '1,232.14', '11,500.00', '1148.00', '2025-01-11 06:46 am', '011164651');
 
 -- --------------------------------------------------------
 
@@ -320,7 +318,7 @@ CREATE TABLE `transaction_details` (
   `PRICE` varchar(250) NOT NULL,
   `EMPLOYEE` varchar(250) NOT NULL,
   `ROLE` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `transaction_details`
@@ -345,7 +343,26 @@ INSERT INTO `transaction_details` (`ID`, `TRANS_D_ID`, `PRODUCTS`, `QTY`, `PRICE
 (22, '0714155515', 'Newmen E120', '1', '550', 'Erick', 'Manager'),
 (23, '0714160904', 'Newmen E120', '1', '550', 'Erick', 'Manager'),
 (24, '0714160904', 'A4tech OP-720', '2', '289', 'Erick', 'Manager'),
-(25, '0714161034', 'Newmen E120', '1', '550', 'Josuey', 'Cashier');
+(25, '0714161034', 'Newmen E120', '1', '550', 'Josuey', 'Cashier'),
+(26, '011082913', 'Newmen E120', '1', '550', 'Josuey', 'Cashier'),
+(27, '0110123033', 'Fantech EG1', '1', '859', 'Josuey', 'Cashier'),
+(28, '0110123033', 'A4tech OP-720', '1', '289', 'Josuey', 'Cashier'),
+(29, '0110123422', 'Fantech EG1', '1', '859', 'Josuey', 'Cashier'),
+(30, '0110123422', 'A4tech OP-720', '1', '289', 'Josuey', 'Cashier'),
+(31, '0110123616', 'Fantech EG1', '1', '859', 'Josuey', 'Cashier'),
+(32, '0110123616', 'A4tech OP-720', '1', '289', 'Josuey', 'Cashier'),
+(33, '0110123633', 'Fantech EG1', '1', '859', 'Josuey', 'Cashier'),
+(34, '0110123633', 'A4tech OP-720', '1', '289', 'Josuey', 'Cashier'),
+(35, '0110123706', 'Fantech EG1', '1', '859', 'Josuey', 'Cashier'),
+(36, '0110123706', 'A4tech OP-720', '1', '289', 'Josuey', 'Cashier'),
+(37, '0110131139', 'Arts Book', '2', '1000', 'Josuey', 'Cashier'),
+(38, '0110131139', 'Good News Bible', '1', '1500', 'Josuey', 'Cashier'),
+(39, '0110132055', 'Rip And Sow', '1', '10000', 'Josuey', 'Cashier'),
+(40, '0110132055', 'Our lives Today', '1', '800', 'Josuey', 'Cashier'),
+(41, '0110132055', 'Html', '4', '10000', 'Josuey', 'Cashier'),
+(42, '0110132811', 'Html', '1', '10000', 'Josuey', 'Cashier'),
+(43, '011164651', 'Good News Bible', '1', '1500', 'Josuey', 'Cashier'),
+(44, '011164651', 'Rip And Sow', '1', '10000', 'Josuey', 'Cashier');
 
 -- --------------------------------------------------------
 
@@ -356,7 +373,7 @@ INSERT INTO `transaction_details` (`ID`, `TRANS_D_ID`, `PRODUCTS`, `QTY`, `PRICE
 CREATE TABLE `type` (
   `TYPE_ID` int(11) NOT NULL,
   `TYPE` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `type`
@@ -378,7 +395,7 @@ CREATE TABLE `users` (
   `USERNAME` varchar(50) DEFAULT NULL,
   `PASSWORD` varchar(50) DEFAULT NULL,
   `TYPE_ID` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `users`
@@ -386,7 +403,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`ID`, `EMPLOYEE_ID`, `USERNAME`, `PASSWORD`, `TYPE_ID`) VALUES
 (1, 1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1),
-(7, 2, 'user', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 2),
+(7, 2, 'user', '12dea96fec20593566ab75692c9949596833adc9', 2),
 (9, 4, 'mncpdrnl', '8cb2237d0679ca88db6464eac60da96345513964', 2);
 
 --
@@ -486,13 +503,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `CATEGORY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `CATEGORY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `CUST_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `CUST_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `employee`
@@ -510,7 +527,7 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `PRODUCT_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `PRODUCT_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `supplier`
@@ -522,13 +539,13 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `TRANS_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `TRANS_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `transaction_details`
 --
 ALTER TABLE `transaction_details`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `users`

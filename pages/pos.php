@@ -79,31 +79,34 @@ function pre_r($array){
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs">
                               <li class="nav-item">
-                                <a class="nav-link" href="#" data-target="#keyboard" data-toggle="tab">Keyboard</a>
+                                <a class="nav-link" href="#" data-target="#Fiction" data-toggle="tab">Fiction</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="#" data-target="#mouse" data-toggle="tab">Mouse</a>
+                                <a class="nav-link" href="#" data-target="#mouse" data-toggle="tab">Non Fiction</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="#headset" data-toggle="tab">Headset</a>
+                                <a class="nav-link" href="#headset" data-toggle="tab">Children's Books</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="#cpu" data-toggle="tab">CPU</a>
+                                <a class="nav-link" href="#cpu" data-toggle="tab">Education</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="#monitor" data-toggle="tab">Monitor</a>
+                                <a class="nav-link" href="#monitor" data-toggle="tab">CookBooks</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="#motherboard" data-toggle="tab">Motherboard</a>
+                                <a class="nav-link" href="#motherboard" data-toggle="tab">Art&Photography</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="#processor" data-toggle="tab">Processor</a>
+                                <a class="nav-link" href="#processor" data-toggle="tab">Religion&Spirituality</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="#powersupply" data-toggle="tab">Power Supply</a>
+                                <a class="nav-link" href="#powersupply" data-toggle="tab">Poetry</a>
                               </li>
                               <li class="nav-item">
                                 <a class="nav-link" href="#others" data-toggle="tab">Others</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="#reme" data-toggle="tab">Science&Nature</a>
                               </li>
                             </ul>
 
