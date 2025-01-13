@@ -40,6 +40,27 @@ switch ($_GET['action'] ?? '') {
                      VALUES (NULL, '{$customer}', '{$countID}', '{$subtotal}', '{$lessvat}', '{$netvat}', '{$addvat}', '{$total}', '{$cash}', '{$date}', '{$today}')";
         mysqli_query($db, $query111) or die(mysqli_error($db));
 
+        $product_id = $_SESSION['pointofsale'][0]['id'];
+
+        #check initial product quantity
+        $qr = "select QTY_STOCK from product where PRODUCT_ID = $product_id";
+        $result = mysqli_query($db,$qr) or die(mysqli_error($db));
+
+        $res = mysqli_fetch_assoc($result);
+        //echo '<script>alert('.$res["QTY_STOCK"].')</script>';
+        //in stock 
+        $qnt = $res['QTY_STOCK'];
+        if($qnt != 0){
+            if($qnt >= $quantity){
+                $newqnt = $qnt - $quantity;
+
+                #reduce quantity
+                $qry = "UPDATE `product` SET `QTY_STOCK` = $newqnt WHERE `PRODUCT_ID` = $product_id";
+                mysqli_query($db,$qry) or die(mysqli_error($db));
+            }
+        }
+        
+
         unset($_SESSION['pointofsale']);
         ?>
         <script type="text/javascript">
