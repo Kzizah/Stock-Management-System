@@ -5,7 +5,7 @@
             
              $total = 0;  
         
-             foreach($_SESSION['pointofsale'] as $key => $product): 
+             foreach($_SESSION['pointofsale'] as $key => $product):
         ?>  
         <?php  
                   $total = $total + ($product['quantity'] * $product['price']);
@@ -163,7 +163,7 @@ $opt .= "</select>";
                         <div class="input-group-prepend">
                           <span class="input-group-text">$</span>
                         </div>
-                          <input class="form-control text-right" id="txtNumber" onkeypress="return isNumberKey(event)" type="text" name="cash" placeholder="ENTER CASH" name="cash" required>
+                          <input class="form-control text-right" id="txtNumber" onkeypress="return isNumberKey(event)" type="readonly" name="cash" placeholder="<?php echo $total; ?>" name="cash">
                     </div>
                   </div>
               </div>

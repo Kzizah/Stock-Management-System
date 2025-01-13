@@ -49,7 +49,7 @@ if ($upass == ''){
            
              ?>    <script type="text/javascript">
                       //then it will be redirected to index.php
-                      alert("<?php echo  $_SESSION['FIRST_NAME']; ?> Welcome!");
+                      //alert("<?php echo  $_SESSION['FIRST_NAME']; ?> Welcome!");
                       window.location = "index.php";
                   </script>
              <?php        
@@ -58,7 +58,7 @@ if ($upass == ''){
            
              ?>    <script type="text/javascript">
                       //then it will be redirected to index.php
-                      alert("<?php echo  $_SESSION['FIRST_NAME']; ?> Welcome!");
+                      //alert("<?php echo  $_SESSION['FIRST_NAME']; ?> Welcome!");
                       window.location = "pos.php";
                   </script>
              <?php        
@@ -69,7 +69,7 @@ if ($upass == ''){
               ?>
                 <script type="text/javascript">
                 alert("Username or Password Not Registered! Contact Your administrator.");
-                window.location = "index.php";
+                window.location = "login.php";
                 </script>
               <?php
 

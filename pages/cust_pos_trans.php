@@ -11,14 +11,9 @@ include'../includes/sidebar.php';
                 while ($row = mysqli_fetch_assoc($result)) {
                           $Aa = $row['TYPE'];
                    
-if ($Aa=='User'){
            
-             ?>    <script type="text/javascript">
-                      //then it will be redirected
-                      alert("Restricted Page! You will be redirected to POS");
-                      window.location = "pos.php";
-                  </script>
-             <?php   }               
+             ?>    
+             <?php                
            
 }   
             ?>
@@ -44,5 +39,6 @@ if ($Aa=='User'){
           </div>
 
 <?php
+
 include'../includes/footer.php';
 ?>
