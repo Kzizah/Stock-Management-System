@@ -42,24 +42,28 @@ switch ($_GET['action'] ?? '') {
 
         $product_id = $_SESSION['pointofsale'][0]['id'];
 
-        #check initial product quantity
-        $qr = "select QTY_STOCK from product where PRODUCT_ID = $product_id";
-        $result = mysqli_query($db,$qr) or die(mysqli_error($db));
+        // Check initial product quantity
+        $qr = "SELECT QTY_STOCK FROM product WHERE PRODUCT_ID = $product_id";
+        $result = mysqli_query($db, $qr) or die(mysqli_error($db));
 
         $res = mysqli_fetch_assoc($result);
-        //echo '<script>alert('.$res["QTY_STOCK"].')</script>';
-        //in stock 
         $qnt = $res['QTY_STOCK'];
-        if($qnt != 0){
-            if($qnt >= $quantity){
-                $newqnt = $qnt - $quantity;
 
-                #reduce quantity
-                $qry = "UPDATE `product` SET `QTY_STOCK` = $newqnt WHERE `PRODUCT_ID` = $product_id";
-                mysqli_query($db,$qry) or die(mysqli_error($db));
-            }
+        // In stock check
+        if ($qnt <= 0 || $qnt < $quantity) {
+            echo "<script type='text/javascript'>
+                    alert('Error: Insufficient stock for the transaction.');
+                    window.location = 'pos.php';
+                  </script>";
+            exit();  // Stop further execution
         }
-        
+
+        // If there is enough stock, proceed with the transaction
+        $newqnt = $qnt - $quantity;
+
+        // Reduce quantity
+        $qry = "UPDATE `product` SET `QTY_STOCK` = $newqnt WHERE `PRODUCT_ID` = $product_id";
+        mysqli_query($db, $qry) or die(mysqli_error($db));
 
         unset($_SESSION['pointofsale']);
         ?>
@@ -73,4 +77,5 @@ switch ($_GET['action'] ?? '') {
     default:
         die("Error: Invalid action.");
 }
+
 ?>
