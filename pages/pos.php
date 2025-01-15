@@ -43,6 +43,7 @@ if(filter_input(INPUT_POST, 'addpos')){
             'id' => filter_input(INPUT_GET, 'id'),
             'name' => filter_input(INPUT_POST, 'name'),
             'price' => filter_input(INPUT_POST, 'price'),
+            'QTY_STOCK' => filter_input(INPUT_POST, 'price'),
             'quantity' => filter_input(INPUT_POST, 'quantity')
         );
     }
@@ -160,7 +161,8 @@ function pre_r($array){
            <td>
             <input type="hidden" name="price[]" value="<?php echo $product['price']; ?>">
             $ <?php echo number_format($product['price']); ?>
-          </td>  
+          </td>
+          
 
            <td>
             <input type="hidden" name="total" value="<?php echo $product['quantity'] * $product['price']; ?>">
