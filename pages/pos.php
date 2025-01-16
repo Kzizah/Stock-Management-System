@@ -79,41 +79,33 @@ function pre_r($array){
                         <div class="card-body">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs">
-                              <li class="nav-item">
-                                <a class="nav-link" href="#" data-target="#keyboard" data-toggle="tab">Fiction</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="#" data-target="#mouse" data-toggle="tab">Non Fiction</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="#headset" data-toggle="tab">Comics & Graphic Novels</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="#cpu" data-toggle="tab">Religion&Spirituality</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="#monitor" data-toggle="tab">Children's Books</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="#motherboard" data-toggle="tab">Education</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="#processor" data-toggle="tab">Art&Photography</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="#powersupply" data-toggle="tab">Poetry</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="#others" data-toggle="tab">Cook Books</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="#reme" data-toggle="tab">Science&Nature</a>
-                              </li>
+                                <?php 
+
+                                $query = "select CATEGORY_ID from category";
+
+                                $result = mysqli_query($db,$query) or die(mysqli_error($db));
+
+                                $rows = mysqli_num_rows($result);
+                                $count = 0;
+                                while($count < $rows){
+                                    $res = mysqli_fetch_assoc($result);
+                                    $CATEGORY_ID = $res['CATEGORY_ID'];
+
+                                    echo "
+                                    <li class='nav-item'>
+                                        <a class='nav-link' href='#' data-target='#' data-toggle='tab'>".$CATEGORY_ID."</a>
+                                    </li>
+                                        ";
+
+                                    $count = $count + 1;
+                                }
+
+                                ?>
+                              
                             </ul>
 
-<!-- TAB PANE AREA - ANG UNOD KA TABS ARA SA TABPANE.PHP -->
-<?php include 'postabpane.php'; ?>
-<!-- END TAB PANE AREA - ANG UNOD KA TABS ARA SA TABPANE.PHP -->
+
+<?php include 'postabpane2.php'; ?>
 
         <div style="clear:both"></div>  
         <br />  
