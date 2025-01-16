@@ -76,7 +76,7 @@ $sup .= "</select>";
                         echo '<td>' . htmlspecialchars($row['CNAME']) . '</td>';
                         echo '<td align="right">
                                 <div class="btn-group">
-                                    <a type="button" class="btn btn-primary bg-gradient-primary" href="pro_searchfrm.php?action=edit&id=' . $row['PRODUCT_ID'] . '">
+                                    <a type="button" class="btn btn-primary bg-gradient-primary" href="pro_searchfrm1.php?action=edit&id=' . $row['PRODUCT_ID'] . '">
                                         <i class="fas fa-fw fa-list-alt"></i> Details
                                     </a>
                                     <div class="btn-group">
