@@ -80,7 +80,7 @@ function pre_r($array){
                             <ul class="nav nav-tabs">
                                 <?php 
 
-                                $query = "select CNAME from category";
+                                $query = "select CATEGORY_ID from category";
 
                                 $result = mysqli_query($db,$query) or die(mysqli_error($db));
 
@@ -88,11 +88,11 @@ function pre_r($array){
                                 $count = 0;
                                 while($count < $rows){
                                     $res = mysqli_fetch_assoc($result);
-                                    $cname = $res['CNAME'];
+                                    $CATEGORY_ID = $res['CATEGORY_ID'];
 
                                     echo "
                                     <li class='nav-item'>
-                                        <a class='nav-link' href='#' data-target='#' data-toggle='tab'>".$cname."</a>
+                                        <a class='nav-link' href='#' data-target='#' data-toggle='tab'>".$CATEGORY_ID."</a>
                                     </li>
                                         ";
 
