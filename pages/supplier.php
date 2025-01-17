@@ -31,8 +31,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <thead>
                     <tr>
                         <th>Company Name</th>
-                        <th>Province</th>
-                        <th>City</th>
+                        <th>County</th>
+                        <th>Sub County</th>
                         <th>Phone Number</th>
                         <th>Option</th>
                     </tr>

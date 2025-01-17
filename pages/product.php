@@ -56,24 +56,36 @@ $sup .= "</select>";
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"> 
                 <thead>
                     <tr>
-                        <th>Product Code</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php                  
-                    $query = 'SELECT PRODUCT_ID, PRODUCT_CODE, NAME, PRICE, CNAME FROM product p JOIN category c ON p.CATEGORY_ID = c.CATEGORY_ID GROUP BY PRODUCT_CODE';
-                    $result = mysqli_query($db, $query) or die(mysqli_error($db));
-                    
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<tr>';
-                        echo '<td>' . htmlspecialchars($row['PRODUCT_CODE']) . '</td>';
-                        echo '<td>' . htmlspecialchars($row['NAME']) . '</td>';
-                        echo '<td>' . htmlspecialchars($row['PRICE']) . '</td>';
-                        echo '<td>' . htmlspecialchars($row['CNAME']) . '</td>';
+                    <th>Product Code</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th> <!-- Category Name -->
+            <th>Supplier (Company Name)</th> <!-- Company Name -->
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $query = 'SELECT 
+                    p.PRODUCT_ID, 
+                    p.PRODUCT_CODE, 
+                    p.NAME, 
+                    p.PRICE, 
+                    c.CNAME, 
+                    s.COMPANY_NAME 
+                  FROM product p 
+                  JOIN category c ON p.CATEGORY_ID = c.CATEGORY_ID 
+                  JOIN supplier s ON p.SUPPLIER_ID = s.SUPPLIER_ID 
+                  GROUP BY p.PRODUCT_CODE';
+        $result = mysqli_query($db, $query) or die(mysqli_error($db));
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<tr>';
+            echo '<td>' . $row['PRODUCT_CODE'] . '</td>'; // Product Code
+            echo '<td>' . $row['NAME'] . '</td>';         // Product Name
+            echo '<td>' . $row['PRICE'] . '</td>';        // Price
+            echo '<td>' . $row['CNAME'] . '</td>';        // Category Name
+            echo '<td>' . $row['COMPANY_NAME'] . '</td>'; // Company Name (Supplier)
                         echo '<td align="right">
                                 <div class="btn-group">
                                     <a type="button" class="btn btn-primary bg-gradient-primary" href="pro_searchfrm1.php?action=edit&id=' . $row['PRODUCT_ID'] . '">

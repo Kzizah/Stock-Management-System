@@ -1,41 +1,42 @@
 <?php
+// Include the connection file
 include '../includes/connection.php';
 
-// Check if the 'id' parameter is passed
-if (isset($_GET['id'])) {
-    $supplier_id = $_GET['id']; // Get the supplier ID from the URL
+// Check if the ID parameter exists in the query string
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    // Get the supplier ID from the query string
+    $supplier_id = $_GET['id'];
 
-    // Sanitize the input
-    $supplier_id = (int)$supplier_id;
-
-    // Query to delete the supplier from the database
+    // Prepare the DELETE query
     $query = "DELETE FROM supplier WHERE SUPPLIER_ID = ?";
+    $stmt = mysqli_prepare($db, $query);
 
-    // Use prepared statements to avoid SQL injection
-    if ($stmt = mysqli_prepare($db, $query)) {
-        // Bind the supplier ID to the prepared statement
-        mysqli_stmt_bind_param($stmt, 'i', $supplier_id);
+    // Bind the supplier ID as a parameter
+    mysqli_stmt_bind_param($stmt, 'i', $supplier_id);
 
-        // Execute the query and check if successful
-        if (mysqli_stmt_execute($stmt)) {
-            // Redirect to the supplier page with a success message
-            header("Location: supplier.php?delete_success=true");
-            exit;  // Ensure the script stops and the redirection happens
-        } else {
-            // If deletion fails, show an error message
-            echo "Error deleting supplier: " . mysqli_error($db);
-        }
-
-        // Close the statement
-        mysqli_stmt_close($stmt);
+    // Execute the query
+    if (mysqli_stmt_execute($stmt)) {
+        // If the query is successful, redirect back with a success message
+        echo "<script>
+                alert('Supplier deleted successfully.');
+                window.location.href = 'supplier.php';
+              </script>";
     } else {
-        // If query preparation fails
-        echo "Failed to prepare the query: " . mysqli_error($db);
+        // If the query fails, display an error message
+        echo "<script>
+                alert('Error deleting supplier. Please try again.');
+                window.location.href = 'supplier.php';
+              </script>";
     }
+
+    // Close the prepared statement
+    mysqli_stmt_close($stmt);
 } else {
-    // If the 'id' parameter is missing, redirect to the supplier page
-    header("Location: supplier.php");
-    exit;
+    // If the ID is missing or invalid, redirect with an error message
+    echo "<script>
+            alert('Invalid request. Supplier not found.');
+            window.location.href = 'supplier.php';
+          </script>";
 }
 
 // Close the database connection
