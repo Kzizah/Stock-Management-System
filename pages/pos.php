@@ -78,32 +78,7 @@ function pre_r($array){
                         <!-- /.panel-heading -->
                         <div class="card-body">
                             <!-- Nav tabs -->
-                            <ul class="nav nav-tabs">
-                                <?php 
-
-                                $query = "select CATEGORY_ID from category";
-
-                                $result = mysqli_query($db,$query) or die(mysqli_error($db));
-
-                                $rows = mysqli_num_rows($result);
-                                $count = 0;
-                                while($count < $rows){
-                                    $res = mysqli_fetch_assoc($result);
-                                    $CATEGORY_ID = $res['CATEGORY_ID'];
-
-                                    echo "
-                                    <li class='nav-item'>
-                                        <a class='nav-link' href='#' data-target='#' data-toggle='tab'>".$CATEGORY_ID."</a>
-                                    </li>
-                                        ";
-
-                                    $count = $count + 1;
-                                }
-
-                                ?>
-                              
-                            </ul>
-
+                         
 
 <?php include 'postabpane2.php'; ?>
 

@@ -1,11 +1,11 @@
 <?php
-session_start();
+//session_start();
 include '../includes/connection.php';
 include '../includes/sidebar.php';
 
 // Enable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 // User Access Validation
 $query = 'SELECT ID, t.TYPE
@@ -31,7 +31,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 $query = 'SELECT *, FIRST_NAME, LAST_NAME
           FROM transaction T
           JOIN customer C ON T.CUST_ID = C.CUST_ID
-          ORDER BY T.TRANS_D_ID DESC';
+          ORDER BY TRANS_ID';
 $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
 // Check if any transactions were returned
@@ -48,6 +48,7 @@ if (mysqli_num_rows($result) == 0) {
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"> 
                     <thead>
                         <tr>
+                          <th width="13%">Trans ID</>
                             <th width="19%">Transaction Number</th>
                             <th>Customer</th>
                             <th width="13%">Number of Items</th>
@@ -59,6 +60,7 @@ if (mysqli_num_rows($result) == 0) {
                         <?php
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo '<tr>';
+                            echo '<td>' . htmlspecialchars($row['TRANS_ID']) . '</td>';
                             echo '<td>' . htmlspecialchars($row['TRANS_D_ID']) . '</td>';
                             echo '<td>' . htmlspecialchars($row['FIRST_NAME'] . ' ' . $row['LAST_NAME']) . '</td>';
                             echo '<td>' . htmlspecialchars($row['NUMOFITEMS']) . '</td>';
