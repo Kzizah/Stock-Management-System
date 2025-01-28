@@ -63,7 +63,13 @@ include'../includes/sidebar.php';
                                     <i class="fas fa-fw fa-edit"></i> Edit
                                   </a>
                                 </li>
-                                
+                                <li>
+                                                <a type="button" class="btn btn-danger bg-gradient-danger btn-block" style="border-radius: 0px;" 
+                                                   href="us_del.php?id=' . $row['ID'] . '" 
+                                                   onclick="return confirm(\'Are you sure you want to delete this product?\');">
+                                                    <i class="fas fa-fw fa-trash"></i> Delete
+                                                </a>
+                                            </li>
                                 </li>
                             </ul>
                             </div>
@@ -121,6 +127,14 @@ include'../includes/sidebar.php';
                                   <a type="button" class="btn btn-warning bg-gradient-warning btn-block" style="border-radius: 0px;" href="us_edit.php?action=edit & id='.$row['ID']. '">
                                     <i class="fas fa-fw fa-edit"></i> Edit
                                   </a>
+                                </li>
+                                <li>
+                                                <a type="button" class="btn btn-danger bg-gradient-danger btn-block" style="border-radius: 0px;" 
+                                                   href="us_del.php?id=' . $row['ID'] . '" 
+                                                   onclick="return confirm(\'Are you sure you want to delete this user?\');">
+                                                    <i class="fas fa-fw fa-trash"></i> Delete
+                                                </a>
+                                            </li>
                                 </li>
                             </ul>
                             </div>

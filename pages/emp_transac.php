@@ -32,7 +32,7 @@ if (isset($_POST['firstname'], $_POST['lastname'], $_POST['gender'], $_POST['ema
                    VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt2 = mysqli_prepare($db, $query2);
         // Here the 'sssssssis' represents the 9 bind parameters
-        mysqli_stmt_bind_param($stmt2, "sssssssis", $fname, $lname, $gen, $email, $phone, $jobb, $hdate, $locationId);
+        mysqli_stmt_bind_param($stmt2, "sssssssi", $fname, $lname, $gen, $email, $phone, $jobb, $hdate, $locationId);
         
         if (mysqli_stmt_execute($stmt2)) {
             // Redirect to employee page after successful insertion

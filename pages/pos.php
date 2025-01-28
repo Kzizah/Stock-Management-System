@@ -7,47 +7,48 @@ $product_ids = array();
 //session_destroy();
 
 //check if Add to Cart button has been submitted
-if(filter_input(INPUT_POST, 'addpos')){
-    if(isset($_SESSION['pointofsale'])){
-        
-        //keep track of how mnay products are in the shopping cart
-        $count = count($_SESSION['pointofsale']);
-        
-        //create sequantial array for matching array keys to products id's
-        $product_ids = array_column($_SESSION['pointofsale'], 'id');
-
-        if (!in_array(filter_input(INPUT_GET, 'id'), $product_ids)){
-        $_SESSION['pointofsale'][$count] = array
-            (
+if (filter_input(INPUT_POST, 'addpos')) {
+    // Get the input quantity
+    $quantity = filter_input(INPUT_POST, 'quantity', FILTER_VALIDATE_INT);
+    
+    // Check if the quantity is 0 or less
+    if ($quantity <= 0) {
+        echo "<script>alert('Stock insufficient: Quantity cannot be zero or less');</script>";
+    } else {
+        if (isset($_SESSION['pointofsale'])) {
+            // Keep track of how many products are in the shopping cart
+            $count = count($_SESSION['pointofsale']);
+            
+            // Create sequential array for matching array keys to product IDs
+            $product_ids = array_column($_SESSION['pointofsale'], 'id');
+            
+            if (!in_array(filter_input(INPUT_GET, 'id'), $product_ids)) {
+                $_SESSION['pointofsale'][$count] = array(
+                    'id' => filter_input(INPUT_GET, 'id'),
+                    'name' => filter_input(INPUT_POST, 'name'),
+                    'price' => filter_input(INPUT_POST, 'price'),
+                    'quantity' => $quantity
+                );
+            } else { // Product already exists, increase quantity
+                // Match array key to ID of the product being added to the cart
+                for ($i = 0; $i < count($product_ids); $i++) {
+                    if ($product_ids[$i] == filter_input(INPUT_GET, 'id')) {
+                        // Add item quantity to the existing product in the array
+                        $_SESSION['pointofsale'][$i]['quantity'] += $quantity;
+                    }
+                }
+            }
+        } else { // If shopping cart doesn't exist, create first product with array key 0
+            $_SESSION['pointofsale'][0] = array(
                 'id' => filter_input(INPUT_GET, 'id'),
                 'name' => filter_input(INPUT_POST, 'name'),
                 'price' => filter_input(INPUT_POST, 'price'),
-                'quantity' => filter_input(INPUT_POST, 'quantity')
-            );   
+                'quantity' => $quantity
+            );
         }
-        else { //product already exists, increase quantity
-            //match array key to id of the product being added to the cart
-            for ($i = 0; $i < count($product_ids); $i++){
-                if ($product_ids[$i] == filter_input(INPUT_GET, 'id')){
-                    //add item quantity to the existing product in the array
-                    $_SESSION['pointofsale'][$i]['quantity'] += filter_input(INPUT_POST, 'quantity');
-                }
-            }
-        }
-        
-    }
-    else { //if shopping cart doesn't exist, create first product with array key 0
-        //create array using submitted form data, start from key 0 and fill it with values
-        $_SESSION['pointofsale'][0] = array
-        (
-            'id' => filter_input(INPUT_GET, 'id'),
-            'name' => filter_input(INPUT_POST, 'name'),
-            'price' => filter_input(INPUT_POST, 'price'),
-            'QTY_STOCK' => filter_input(INPUT_POST, 'price'),
-            'quantity' => filter_input(INPUT_POST, 'quantity')
-        );
     }
 }
+
 
 if(filter_input(INPUT_GET, 'action') == 'delete'){
     //loop through all products in the shopping cart until it matches with GET id variable
@@ -157,3 +158,17 @@ function pre_r($array){
 include 'posside.php';
 include'../includes/footer.php';
 ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addPosForm = document.querySelector('form[action="pos_transac.php?action=add"]');
+        addPosForm.addEventListener('submit', function (event) {
+            const quantityInput = addPosForm.querySelector('input[name="quantity"]');
+            const quantity = parseInt(quantityInput.value, 10);
+            
+            if (quantity <= 0 || isNaN(quantity)) {
+                event.preventDefault(); // Prevent form submission
+                alert('Stock insufficient: Quantity cannot be zero or less');
+            }
+        });
+    });
+</script>

@@ -31,7 +31,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 $query = 'SELECT *, FIRST_NAME, LAST_NAME
           FROM transaction T
           JOIN customer C ON T.CUST_ID = C.CUST_ID
-          ORDER BY TRANS_ID';
+          ORDER BY TRANS_ID DESC';
 $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
 // Check if any transactions were returned
