@@ -1,27 +1,13 @@
 <?php
-include '../includes/connection.php';
-include '../includes/sidebar.php';
+//session_start(); // Start the session at the beginning
 
-function checkUserAccess($db) {
-    $query = 'SELECT ID, t.TYPE 
-              FROM users u 
-              JOIN type t ON t.TYPE_ID = u.TYPE_ID 
-              WHERE ID = ?';
-    
-    $stmt = $db->prepare($query);
-    $stmt->bind_param('i', $_SESSION['MEMBER_ID']);
-    $stmt->execute();
-    $result = $stmt->get_result();
+include '../includes/connection.php'; // Include your database connection
+include '../includes/sidebar.php'; // Include your sidebar
+include '../pages/functions.php'; // Include your functions
 
-    if ($row = $result->fetch_assoc()) {
-        if ($row['TYPE'] == 'User ') {
-            redirectWithMessage(
-                'Restricted Page! You will be redirected to POS',
-                'pos.php'
-            );
-        }
-    }
-}
+// Call the checkUser  Access function to verify user access
+checkUserAccess($db); // Call the function with the database connection
+
 
 function redirectWithMessage($message, $location) {
     echo "<script type='text/javascript'>
@@ -70,26 +56,13 @@ function handleFormSubmission($db) {
     }
 }
 
+
 function renderAddCategoryForm() {
     ?>
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h4 class="m-2 font-weight-bold text-primary">Add New Category</h4>
-        </div>
-        <div class="card-body">
-            <form method="POST" action="">
-                <div class="form-group">
-                    <label for="category_name">Category Name</label>
-                    <input type="text" 
-                           class="form-control" 
-                           id="category_name" 
-                           name="category_name" 
-                           required>
-                </div>
-                <button type="submit" class="btn btn-primary">Add Category</button>
-            </form>
-        </div>
-    </div>
+    <form method="POST" action="">
+        <input type="text" name="category_name" required>
+        <button type="submit">Add Category</button>
+    </form>
     <?php
 }
 

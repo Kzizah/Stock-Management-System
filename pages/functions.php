@@ -24,6 +24,8 @@ function checkUserAccess($db) {
     }
 }
 
+
+
 function getSearchQuery() {
     global $db;
     $search_query = '';

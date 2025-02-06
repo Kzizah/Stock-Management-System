@@ -255,3 +255,49 @@ $opt .= "</select>";
       </div>
     </div>
   </div>
+  <!-- Modal -->
+<div class="modal fade" id="aModal" tabindex="-1" role="dialog" aria-labelledby="aModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="aModalLabel">Add Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Add your form here -->
+                <form method="POST" action="pro_add.php">
+                    <div class="form-group">
+                        <label for="product_code">Product Code</label>
+                        <input type="text" class="form-control" id="product_code" name="product_code" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product_name">Product Name</label>
+                        <input type="text" class="form-control" id="product_name" name="product_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category_id">Category</label>
+                        <select class="form-control" id="category_id" name="category_id" required>
+                            <?php echo $categoryDropdown; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="supplier_id">Supplier</label>
+                        <select class="form-control" id="supplier_id" name="supplier_id" required>
+                            <?php echo $supplierDropdown; ?>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

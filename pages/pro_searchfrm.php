@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 include'../includes/connection.php';
 
 include'../includes/sidebar.php';
@@ -124,7 +124,7 @@ include'../includes/sidebar.php';
                    </tr>
                </thead>
           <tbody>
-
+<!--  -->
 <?php                  
     $query = 'SELECT PRODUCT_ID, PRODUCT_CODE, NAME, COUNT("QTY_STOCK") AS QTY_STOCK, COUNT("ON_HAND") AS ON_HAND, CNAME, COMPANY_NAME, p.SUPPLIER_ID, DATE_STOCK_IN FROM product p join category c on p.CATEGORY_ID=c.CATEGORY_ID JOIN supplier s ON p.SUPPLIER_ID=s.SUPPLIER_ID where PRODUCT_CODE ='.$zzz.' GROUP BY `SUPPLIER_ID`, `DATE_STOCK_IN`';
         $result = mysqli_query($db, $query) or die (mysqli_error($db));
@@ -152,4 +152,4 @@ include'../includes/sidebar.php';
 
 <?php
 include'../includes/footer.php';
-?>
+?> -->
