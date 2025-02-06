@@ -66,11 +66,12 @@ switch ($_GET['action'] ?? '') {
         mysqli_query($db, $qry) or die(mysqli_error($db));
 
         unset($_SESSION['pointofsale']);
+        
         ?>
         <script type="text/javascript">
-            alert("Transaction successfully added.");
-            window.location = "pos.php";
+            window.location = "report.php";
         </script>
+      
         <?php
         break;
 

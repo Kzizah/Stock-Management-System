@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start the session at the beginning
+//session_start(); // Start the session at the beginning
 
 include '../includes/connection.php'; // Include your database connection
 include '../includes/sidebar.php'; // Include your sidebar
